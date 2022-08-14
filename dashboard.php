@@ -9,7 +9,7 @@
 </head>
 <body>
 <?php
-include "functions.php";
+require "functions.php";
 
 $users_list = url_request('https://user-transaction-fetch-api.herokuapp.com/user');
 
