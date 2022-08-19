@@ -29,11 +29,16 @@ foreach ($users_list as $user){
                     <div class=\"modal-table\">";
 
         $transactions_list = url_request('https://user-transaction-fetch-api.herokuapp.com/transaction/user/' . $user->id);
-        echo_table_row("Product","Date","Quantity","Price");
 
-        foreach ($transactions_list as $transaction) {
-            $product = $transaction->line;
-            echo_table_row($product->product_name,date("Y-m-d H:i:s",$transaction->timestamp),$product->quantity,$product->price);
+        if (empty($transactions_list)){
+            echo "<div class=\"empty-message\">This user has no transactions.</div>";
+        } else {
+            echo_table_row("Product","Date","Quantity","Price");
+
+            foreach ($transactions_list as $transaction) {
+                $product = $transaction->line;
+                echo_table_row($product->product_name,date("Y-m-d H:i:s",$transaction->timestamp),$product->quantity,$product->price);
+            }
         }
                         
         echo "</div>
